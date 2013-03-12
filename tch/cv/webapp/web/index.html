@@ -51,14 +51,11 @@
 			</header><!-- .entry-header -->
 
 	<div class="entry-content">
-		<p>I <a href="http://insouciant.org/tech/time-to-load-localstorage-into-memory/">previously discussed LocalStorage load times</a>, and had concluded that it wasn’t too bad. However, when I got back from my new year’s holiday in Patagonia, I started digging through my email backlog and found an interesting line of questioning from GMail engineers, asking why Chrome’s first LocalStorage access was so slow in their use case, and providing data showing it. I, of course, knew why it&nbsp;<em>should</em> be slow, because it’s loading the <em>entire</em> DB from disk on the first access. But I previously had data that showed it wasn’t so bad. What I realized then was that I was not accounting for the size of the DB. So I added <a href="http://src.chromium.org/viewvc/chrome?view=rev&revision=181855" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://src.chromium.org&#39;]);">histograms to record LocalStorage DB sizes and load times by size</a>. Note that LocalStorage is cached both in the renderer and browser processes. Furthermore, note that I’m only recording a single sample for each time LocalStorage is loaded into the process’s in-memory cache. This obviously means that long-lived renderer processes (roughly speaking, tabs) will only get one sample recorded, even if they heavily use LocalStorage.</p>
-<div id="attachment_493" class="wp-caption aligncenter" style="width: 1088px"><a href="./LocalStorage Load Times Redux   Insouciant_files/chrome_26_dev_local_storage_db_sizes.png"><img class="size-full wp-image-493" alt="Shows the size of the browser process and renderer process LocalStorage in-memory cache at load time (first access)." src="./LocalStorage Load Times Redux   Insouciant_files/chrome_26_dev_local_storage_db_sizes.png" width="1078" height="500"></a><p class="wp-caption-text">Shows the size of the browser process and renderer process LocalStorage in-memory cache at load time (first access). There’s an interesting little jump at 1MB, which I’m unable to explain.</p></div>
+		<p>I</p>
+<div id="" class="wp-caption aligncenter" style="width: 1088px"><p class="wp-caption-text"></p></div>
 			</div><!-- .entry-content -->
 
-	<footer class="entry-meta">
-		This entry was posted in <a href="http://insouciant.org/category/tech/" title="View all posts in Tech" rel="category tag">Tech</a> and tagged <a href="http://insouciant.org/tag/localstorage/" rel="tag">localstorage</a>, <a href="http://insouciant.org/tag/performance/" rel="tag">performance</a> by <a href="http://insouciant.org/author/willchan/">willchan</a>. Bookmark the <a href="" title="Permalink to LocalStorage Load Times Redux" rel="bookmark">permalink</a>.		
-		
-	</footer>
+
 </article>
 
         
@@ -67,7 +64,7 @@
 	
 	
 			<h2 id="comments-title">
-			4 thoughts on “<span>LocalStorage Load Times Redux</span>”		</h2>
+			4 “<span>aaaaa</span>”		</h2>
 
 		
 		<ol class="commentlist">
@@ -75,80 +72,23 @@
 		<article id="comment-59" class="comment">
 			<footer class="comment-meta">
 				<div class="comment-author vcard">
-					<img alt="" src="./LocalStorage Load Times Redux   Insouciant_files/be6941aa27b63264a1da038e71947771" class="avatar avatar-68 photo" height="68" width="68"><span class="fn"><a href="http://stevesouders.com/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-commentauthor&#39;,&#39;http://stevesouders.com&#39;]);" rel="external nofollow" class="url">Steve Souders</a></span> on <a href="#"><time pubdate="" datetime="2013-02-22T18:00:12+00:00">February 22, 2013 at 6:00 pm</time></a> <span class="says">said:</span>
-									</div><!-- .comment-author .vcard -->
+					<time pubdate="" datetime="2013-02-22T18:00:12+00:00">February 22, 2013 at 6:00 pm</time><span class="says">said:</span>
+									</div>
 
 				
 			</footer>
 
-			<div class="comment-content"><p>Great great article, Will. It’s *incredibly* valuable to get data like this directly from a browser team. </p>
-<p>localStorage is so easy to use, it’s too bad that it has these performance downsides. Is there discussion about how to fix that? For example, I’d love a change to the API to provide a callback, so that the renderer would NOT have to block while localStorage was being read from disk. </p>
-<p>Alas, I warned several years ago (<a href="http://ajaxian.com/archives/mozilla-web-caching-summit" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-comment&#39;,&#39;http://ajaxian.com&#39;]);" rel="nofollow">at the Mozilla Caching Summit</a>) that the localStorage horse was leaving the barn and if the browser file cache wasn’t improved we’d end up in this situation where web devs were building alternative caching mechanisms. Now here we are. But it’s not too late! If developers could have an API to and guaranteed minimum space in the file cache they wouldn’t need to use localStorage for storing file assets. localStorage doesn’t have default mechanisms for expiring data and users are less familiar with the UI for clearing localStorage – whereas both of these are better wrt the file cache. I think browser developers should focus on improving file cache as a first priority.</p>
+			<div class="comment-content"><p>aaa </p>
+<p>xxx</p>
+<p>vv</p>
 </div>
 
 			<div class="reply">
-				<a class="comment-reply-link" href="https://insouciant.org/tech/localstorage-load-times-redux/?replytocom=59#respond" onclick="return addComment.moveForm(&quot;comment-59&quot;, &quot;59&quot;, &quot;respond&quot;, &quot;492&quot;)">Reply <span>↓</span></a>			</div><!-- .reply -->
+				<a class="comment-reply-link" href="#" >Reply <span>↓</span></a>			</div><!-- .reply -->
 		</article><!-- #comment-## -->
 
 	</li>
-	<li class="comment byuser comment-author-willchan bypostauthor odd alt thread-odd thread-alt depth-1" id="li-comment-61">
-		<article id="comment-61" class="comment">
-			<footer class="comment-meta">
-				<div class="comment-author vcard">
-					<img alt="" src="./LocalStorage Load Times Redux   Insouciant_files/5459f6f12378ec85667ebf2ac081ba84" class="avatar avatar-68 photo" height="68" width="68"><span class="fn"><a href="http://insouciant.org/" rel="external nofollow" class="url">willchan</a></span> on <a href="#"><time pubdate="" datetime="2013-02-22T22:21:55+00:00">February 22, 2013 at 10:21 pm</time></a> <span class="says">said:</span>
-									</div><!-- .comment-author .vcard -->
-
-				
-			</footer>
-
-			<div class="comment-content"><p>People have been discussing API solutions for awhile. I think the current thinking is IndexedDB is the way to go. It’d be nice to have a simpler API though, but maybe we can just do that in a library first, and perhaps bake it into the web platform later.</p>
-<p>As far as the browser cache, we’re already looking into issues. We don’t see the same problems that web devs see, so if you can send us web devs with issues and data about the problems, we can look into it.</p>
-<p>Note that the browser cache only works if what they truly want is a cache (with eviction policy and everything). It won’t help if what web devs want is a fully programmable resource store.</p>
-</div>
-
-			<div class="reply">
-				<a class="comment-reply-link" href="https://insouciant.org/tech/localstorage-load-times-redux/?replytocom=61#respond" onclick="return addComment.moveForm(&quot;comment-61&quot;, &quot;61&quot;, &quot;respond&quot;, &quot;492&quot;)">Reply <span>↓</span></a>			</div><!-- .reply -->
-		</article><!-- #comment-## -->
-
-	</li>
-	<li class="comment even thread-even depth-1" id="li-comment-62">
-		<article id="comment-62" class="comment">
-			<footer class="comment-meta">
-				<div class="comment-author vcard">
-					<img alt="" src="./LocalStorage Load Times Redux   Insouciant_files/1b5088e074b3bf27ac244eb2ce1eaba5" class="avatar avatar-68 photo" height="68" width="68"><span class="fn">niloy mondal</span> on <a href="#"><time pubdate="" datetime="2013-02-24T04:20:46+00:00">February 24, 2013 at 4:20 am</time></a> <span class="says">said:</span>
-									</div><!-- .comment-author .vcard -->
-
-				
-			</footer>
-
-			<div class="comment-content"><p>Just give us the async version of localstorage.</p>
-</div>
-
-			<div class="reply">
-				<a class="comment-reply-link" href="https://insouciant.org/tech/localstorage-load-times-redux/?replytocom=62#respond" onclick="return addComment.moveForm(&quot;comment-62&quot;, &quot;62&quot;, &quot;respond&quot;, &quot;492&quot;)">Reply <span>↓</span></a>			</div><!-- .reply -->
-		</article><!-- #comment-## -->
-
-	</li>
-	<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-63">
-		<article id="comment-63" class="comment">
-			<footer class="comment-meta">
-				<div class="comment-author vcard">
-					<img alt="" src="./LocalStorage Load Times Redux   Insouciant_files/0770ae4e1a99e8f70cd62abbde12829a" class="avatar avatar-68 photo" height="68" width="68"><span class="fn"><a href="http://wrapyourownasyncversion/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-commentauthor&#39;,&#39;&#39;]);" rel="external nofollow" class="url">Johan Coppieters</a></span> on <a href="#"><time pubdate="" datetime="2013-02-25T09:08:38+00:00">February 25, 2013 at 9:08 am</time></a> <span class="says">said:</span>
-									</div><!-- .comment-author .vcard -->
-
-				
-			</footer>
-
-			<div class="comment-content"><p>After reading these numbers: If you really need a large localStorage then make sure your first access is not in your main thread (unless ofcourse you need this first access in a decision process on what to render).</p>
-<p>There are possibilities enough: WebWorkers, load and ready events, …</p>
-</div>
-
-			<div class="reply">
-				<a class="comment-reply-link" href="https://insouciant.org/tech/localstorage-load-times-redux/?replytocom=63#respond" onclick="return addComment.moveForm(&quot;comment-63&quot;, &quot;63&quot;, &quot;respond&quot;, &quot;492&quot;)">Reply <span>↓</span></a>			</div><!-- .reply -->
-		</article><!-- #comment-## -->
-
-	</li>
-		</ol>
+			</ol>
 
 		
 	
