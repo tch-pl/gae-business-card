@@ -10,4 +10,3 @@ class ContactData(polymodel.PolyModel):
 class PersonalData(db.Model):
     first_name = db.StringProperty()
     last_name = db.StringProperty()
-    contact_data = db.ReferenceProperty(ContactData)

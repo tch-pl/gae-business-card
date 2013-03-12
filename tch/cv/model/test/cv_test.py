@@ -4,7 +4,6 @@ Created on 27-10-2012
 @author: user
 '''
 import unittest
-import tch.cv.util.test.test_utils
 
 class Test(unittest.TestCase):
 

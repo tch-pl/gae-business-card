@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-from tch.cv.model.Person import PersonalData, ContactData
+from tch.cv.model.ext.Person import PersonalData, ContactData
 
 
 position_categories = ('developer', 'PM', 'analyst')
