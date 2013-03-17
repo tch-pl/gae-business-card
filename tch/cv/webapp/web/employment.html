@@ -1,0 +1,81 @@
+{% extends "index.html" %}
+    {% block content %}
+	<div id="main" class="clearfix">
+
+		<div id="primary">
+			<div id="content" role="main">
+			
+					<!-- nav id="nav-single">
+						<h3 class="assistive-text">Post navigation</h3>
+						<span class="nav-previous"><a href="#" rel="prev"><span class="meta-nav">←</span> Previous</a></span>
+						<span class="nav-next"></span>
+					</nav><!-- #nav-single -->
+	
+	{% for history in content.employment.history %}				
+	<header class="entry-header">
+	
+							
+						
+		<h1 class="entry-title">{{history.company}}</h1>
+
+		        <div class="entry-meta">
+                <span class="sep">Od </span><!-- <a href="#" title="3:54 pm" rel="bookmark">--><time class="entry-date" datetime="{{history.start_date}}">{{history.start_date}}</time></a>
+                <!--  span class="by-author"> <span class="sep"> x </span> <span class="author vcard"></span></span-->                                    
+                <span class="sep"> — </span>
+                    <span class="sep">Do </span><!-- <a href="#" title="3:54 pm" rel="bookmark">--><time class="entry-date" datetime="{{history.end_date}}">{{history.start_date}}</time></a>
+                            </div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>{{history.position[language]}}</p>
+<div id="" class="wp-caption aligncenter" style="width: 1088px"><p class="wp-caption-text"></p></div>
+			</div><!-- .entry-content -->
+{% endfor %}
+
+</article>
+
+    <!--    
+
+						<div id="comments">
+	
+	
+			<h2 id="comments-title">
+			4 “<span>aaaaa</span>”		</h2>
+
+		
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1" id="li-comment-59">
+		<article id="comment-59" class="comment">
+			<footer class="comment-meta">
+				<div class="comment-author vcard">
+					<time pubdate="" datetime="2013-02-22T18:00:12+00:00">February 22, 2013 at 6:00 pm</time><span class="says">said:</span>
+									</div>
+
+				
+			</footer>
+
+			<div class="comment-content"><p>aaa </p>
+<p>xxx</p>
+<p>vv</p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="#" >Reply <span>↓</span></a>			</div><!-- .reply --
+		</article><!-- #comment-## --
+
+	</li>
+			</ol>
+
+		
+	
+									
+</div><!-- #comments -->
+
+				
+			</div><!-- #content -->
+		</div><!-- #primary -->
+        
+
+	</div><!-- #main -->
+{% endblock %}
+
