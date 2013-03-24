@@ -10,6 +10,11 @@ handlers:
 - url: /static
   static_dir: static
   
+- url: /
+  script: tch/cv/webapp/pages.py
+- url: /static
+  static_dir: static
+  
 libraries:
 - name: jinja2
   version: latest

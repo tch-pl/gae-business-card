@@ -1,6 +1,12 @@
+#-*- coding: utf-8 -*-
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 import jinja2
+
+"""Author: Tomasz Chrul"""
+
+#TODO
+"""fix encoding (to support polish characters)"""
 
 
 template_path = 'tch/cv/webapp/web/'
@@ -78,16 +84,20 @@ def isLanguageSupported(language):
 #        template_values = {}
 #        self.response.out.write(templateResolve('/cv').render(template_values))
 
+class Main(webapp.RequestHandler):
+    def get(self):
+        self.redirect("/cv")
+
 
    
 class BusinessCard(webapp.RequestHandler):
     def get(self):
         splitted = splitURLPath(self.request.path)        
         language = default_language
-        if len(splitted) > 1 and isLanguageSupported(splitted[1]):
+        if splitted is not None and len(splitted) > 1 and isLanguageSupported(splitted[1]):
             language = splitted[1]                
         controller_name = None
-        if len(splitted) == 3:
+        if splitted is not None and len(splitted) == 3:
             controller_name = splitted[2]
         else:
             controller_name = default_controller    
@@ -96,9 +106,12 @@ class BusinessCard(webapp.RequestHandler):
 
     def resolveModel(self, language, controller_name):
         content = self.resolveContent(controller_name)
+        title = {'pl': 'Troche informacji o mnie','en': 'Some info about me'}
         model = {
                  'menu' : menu,
                  'language' : language,
+                 'title' : title,
+                 'supported_languages' : supported_languages,
                  'content' : content                 
                  }
         return model
@@ -128,19 +141,36 @@ class CVContentFactory():
 
 class EmploymentHistory():            
     def __init__(self,user=""):
-        self.history = [Employment("Optix Sp. z o. o.", '2006-09', '2007-11', {'pl':'Programista', 'en':'Software Developer'}),
-                   Employment("BLStream Sp. z o. o.", '2007-12', '2010-06', {'pl':'Programista', 'en':'Software Developer'}),
-                   Employment("BLStream Sp. z o. o.", '20010-07', '2011-05', {'pl':'Starszy Programista', 'en':'Senior Software Developer'}),
-                   Employment("BLStream Sp. z o. o.", '20011-06', '2013-04', {'pl':'Techniczny Lider Projektu', 'en':'Technical Project Leader'})
+        self.history = [Employment("Optix Sp. z o. o.", 
+                                   '2006-09', '2007-11', 
+                                   {'pl':'Programista', 'en':'Software Developer'}, 
+                                   {'pl':'', 'en':''}),
+                   Employment("BLStream Sp. z o. o.", 
+                              '2007-12', '2010-06', 
+                              {'pl':'Programista', 'en':'Software Developer'}, 
+                              {'pl':'', 'en':''}),
+                   Employment("BLStream Sp. z o. o.", 
+                              '20010-07', '2011-05', 
+                              {'pl':'Starszy Programista', 
+                               'en':'Senior Software Developer'}, 
+                              {'pl':['Utrzymanie i rozwoj aplikacji typu selfcare', 'Tworzenie dokumentacji technicznej'], 
+                               'en':['Maintenance and development of selfcare web application', 'Writing technical documentation' ]}),
+                   Employment("BLStream Sp. z o. o.", 
+                              '20011-06', '2013-04', 
+                              {'pl':'Techniczny Lider Projektu', 'en':'Technical Project Leader'}, 
+                              {'pl':
+                                    ['Koordynacja pracy zespolu projektowego', 'Komunikacja z klientem', 'Wsparcie techniczne zespolu i klienta'], 
+                                'en':['development team coordination', 'communication with customer', 'technical support for team and customer']})
                    ]
         
 
 class Employment():    
-    def __init__(self,company, start_date, end_date, position):
+    def __init__(self,company, start_date, end_date, position, description):
         self.company = company
         self.start_date = start_date
         self.end_date = end_date
         self.position = position
+        self.description = description
 
 
     
@@ -149,7 +179,7 @@ class Education():
     pass
 
     
-application = webapp.WSGIApplication([(r'/cv.*', BusinessCard)], debug=True)
+application = webapp.WSGIApplication([('/',Main),(r'/cv.*', BusinessCard)], debug=True)
 
 
 

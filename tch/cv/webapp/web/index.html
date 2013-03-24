@@ -1,36 +1,34 @@
-<!DOCTYPE html>
-<html lang="en-US"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<title>TCH</title>
-<link rel="stylesheet" type="text/css" media="all" href="/static/style.css">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">  
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>{{title[language]}}</title>
+  <meta name="description" content="" /> 
+  <link rel="stylesheet" href="/static/pblog.css" type="text/css" />
 </head>
+<body>
+<div class="external">
+  <div id="logo">
+    <div>
+      <h1><a href="/cv/" title="{{full_name}}" rel="home">{{content.profession}}:{{content.full_name}}</a></h1>
+      <h2>{% for lang in supported_languages %}
+      		<a href="/cv/{{lang}}"> /{{lang}} </a>
+      	{% endfor %}
+      </h2>
+    </div>
+  </div>
+  <ul id="menu">
+  	{% for item in menu %}
+		<li><a href="/cv/{{language}}/{{item.link}}" title="">{{item.description[language]}}</a></li>
+	{% endfor %}
+  </ul>
+   {% block content %}{% endblock %}	
+  <div id="footer">
+          <p>Copyright &copy; 2012; Projekt: SzablonyStron.org - <a href="http://szablonystron.org">darmowe szablony stron html</a>, zdrowa skóra w <a href="http://www.korona.krakow.pl/spa/sauny.html">sauna infrared Kraków</a></p><!--link_baza_stop-->
+  </div>
+  <div class="clear"></div>
+</div>
 
-<body class="single single-post postid-492 single-format-standard single-author content-onecolumn">
-<div id="page" class="hfeed">
-	<header id="branding" role="banner">
-			<hgroup>
-               	                            
-				<h1 id="site-title"><span><a href="/cv/" title="{{full_name}}" rel="home">{{content.profession}}:{{content.full_name}}</a></span></h1><img src="/static/anonymous.png"/>
-				<h2 id="site-description"></h2>
-			</hgroup>
-
-			
-			<nav id="access" role="navigation">
-				<div class="menu-header-container">
-					<ul class="menu l_tinynavNaN">
-						{% for item in menu %}
-							<li><a href="/cv/{{language}}/{{item.link}}" title="">{{item.description[language]}}</a></li>
-						{% endfor %}
-			    </div>
-			</nav>
-            
-	</header>
-    {% block content %}{% endblock %}
-	
-</div><!-- #page -->
-
-
-
-
-</body></html>
+</body>
+</html>
