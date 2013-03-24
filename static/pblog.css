@@ -140,6 +140,8 @@ form {
   border-right:2px solid #9c2100; }
 #menu li.last {
   border:0; }
+#menu li.selected {
+  background-color:#809c00; }
 #menu li a {
   color: #9c2100; 
   text-decoration: none; }
@@ -211,10 +213,10 @@ form {
   display: block;
   margin:0;
   padding:0; 
-  color:#fff; }
+  color:#809c00; }
 #footer p a {
-  color: #fff;
+  color: #809c00;
   text-decoration: none; }
 #footer p a:hover {
-  color: #fff;
+  color: #809c00;
   text-decoration: underline; }

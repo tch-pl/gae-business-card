@@ -13,14 +13,15 @@
     <div>
       <h1><a href="/cv/" title="{{full_name}}" rel="home">{{content.profession}}:{{content.full_name}}</a></h1>
       <h2>{% for lang in supported_languages %}
-      		<a href="/cv/{{lang}}"> /{{lang}} </a>
+      		<a href="/cv/{{lang}}/{{controller_name}}"> /{{lang}} </a>
       	{% endfor %}
       </h2>
     </div>
   </div>
   <ul id="menu">
   	{% for item in menu %}
-		<li><a href="/cv/{{language}}/{{item.link}}" title="">{{item.description[language]}}</a></li>
+  		
+		<li {%if controller_name==item.link%} class="selected"{% endif %}><a  href="/cv/{{language}}/{{item.link}}" title="">{{item.description[language]}}</a></li>
 	{% endfor %}
   </ul>
    {% block content %}{% endblock %}	

@@ -6,7 +6,10 @@ import jinja2
 """Author: Tomasz Chrul"""
 
 #TODO
-"""fix encoding (to support polish characters)"""
+"""
+    1. fix encoding (to support polish characters)
+    2. export data to external source (e.g. JSON file)
+"""
 
 
 template_path = 'tch/cv/webapp/web/'
@@ -33,10 +36,10 @@ class MenuItem():
         return current_description
         
 
-menu = [MenuItem('employment', "employment.html", {"pl":"Zatrudnienie", "en":"Employment"}), 
-             MenuItem('education', "index.html", {"pl":"Edukacja", "en":"Education"}), 
-             MenuItem('experience', "index.html", {"pl":"Doswiadczenie", "en":"Experience"}), 
-             MenuItem('about', "index.html", {"pl":"O mnie", "en":"About myself"})]
+menu = [MenuItem('employment', "employment.html", {"pl":"Zatrudnienie", "en":"Employment"}),
+             MenuItem('education', "education.html", {"pl":"Edukacja", "en":"Education"}),
+             MenuItem('experience', "index.html", {"pl":"Doswiadczenie", "en":"Experience"}),
+             MenuItem('about', "about.html", {"pl":"O mnie", "en":"About myself"})]
 
 
 jinja_environment = jinja2.Environment(
@@ -106,13 +109,18 @@ class BusinessCard(webapp.RequestHandler):
 
     def resolveModel(self, language, controller_name):
         content = self.resolveContent(controller_name)
-        title = {'pl': 'Troche informacji o mnie','en': 'Some info about me'}
+        title = {'pl': 'Troche informacji o mnie', 'en': 'Some info about me'}
+        since_date = {'pl': 'Od', 'en': 'Since'}
+        to_date = {'pl': 'Do', 'en': 'To'}
         model = {
                  'menu' : menu,
                  'language' : language,
                  'title' : title,
                  'supported_languages' : supported_languages,
-                 'content' : content                 
+                 'content' : content,
+                 'controller_name' : controller_name,
+                 'since_date' : since_date[language],
+                 'to_date' : to_date[language]
                  }
         return model
     
@@ -127,59 +135,88 @@ class BusinessCard(webapp.RequestHandler):
 
 
 class CVContentFactory():
-    def generateContent(self, controller_name, user=""):        
-        if controller_name == 'employment':
-            return {"employment" : EmploymentHistory()}
+    def generateContent(self, controller_name, user=""):
+        historyContent = HistoryContent()        
+        if 'employment' == controller_name:
+            return {"employment" : historyContent.employmentHistory}
         elif 'education' == controller_name:
-            return {"education" : Education}
+            return {"education" : historyContent.educationHistory}
         elif 'experience' == controller_name:
-            return {"education" : Education}
+            return {"education" : historyContent.educationHistory}
         elif 'about' == controller_name:
-            return {"education" : Education}
+            return {"education" : historyContent.educationHistory}
         else:
-            return {"employment" : EmploymentHistory()}
+            return {"employment" : historyContent.employmentHistory}
 
-class EmploymentHistory():            
-    def __init__(self,user=""):
-        self.history = [Employment("Optix Sp. z o. o.", 
-                                   '2006-09', '2007-11', 
-                                   {'pl':'Programista', 'en':'Software Developer'}, 
-                                   {'pl':'', 'en':''}),
-                   Employment("BLStream Sp. z o. o.", 
-                              '2007-12', '2010-06', 
-                              {'pl':'Programista', 'en':'Software Developer'}, 
-                              {'pl':'', 'en':''}),
-                   Employment("BLStream Sp. z o. o.", 
-                              '20010-07', '2011-05', 
-                              {'pl':'Starszy Programista', 
-                               'en':'Senior Software Developer'}, 
-                              {'pl':['Utrzymanie i rozwoj aplikacji typu selfcare', 'Tworzenie dokumentacji technicznej'], 
+class HistoryContent():            
+    def __init__(self, user=""):
+        self.employmentHistory = [Employment("BLStream Sp. z o. o.",
+                              '20011-06', '-',
+                              {'pl':'Techniczny Lider Projektu', 'en':'Technical Project Leader'},
+                              {'pl': ['Koordynacja pracy zespolu projektowego', 'Komunikacja z klientem', 'Wsparcie techniczne zespolu i klienta'],
+                                'en':['development team coordination', 'communication with customer', 'technical support for team and customer']}),
+                        Employment("BLStream Sp. z o. o.",
+                              '20010-07', '2011-05',
+                              {'pl':'Starszy Programista',
+                               'en':'Senior Software Developer'},
+                              {'pl':['Utrzymanie i rozwoj aplikacji typu selfcare', 'Tworzenie dokumentacji technicznej'],
                                'en':['Maintenance and development of selfcare web application', 'Writing technical documentation' ]}),
-                   Employment("BLStream Sp. z o. o.", 
-                              '20011-06', '2013-04', 
-                              {'pl':'Techniczny Lider Projektu', 'en':'Technical Project Leader'}, 
-                              {'pl':
-                                    ['Koordynacja pracy zespolu projektowego', 'Komunikacja z klientem', 'Wsparcie techniczne zespolu i klienta'], 
-                                'en':['development team coordination', 'communication with customer', 'technical support for team and customer']})
-                   ]
+                        Employment("BLStream Sp. z o. o.",
+                              '2007-12', '2010-06',
+                              {'pl':'Programista', 'en':'Software Developer'},
+                              {'pl':'', 'en':''}),
+                        Employment("Optix Sp. z o. o.",
+                                   '2006-09', '2007-11',
+                                   {'pl':'Programista', 'en':'Software Developer'},
+                                   {'pl':'', 'en':''})]
         
+        self.educationHistory = [Education({"en":"Koszalin University of Technology", "pl":"Politechnika Koszalinska"},
+                              {'en':'October 2004', 'pl':'Pazdziernik 2004'},
+                              {'en':'February 2006','pl':'Luty 2006'},
+                              {'pl':'Magister', 'en':'Master\'s degree'},
+                              {'pl': ['Wydzial Elektroniki i informatyki', 
+                                      'Specjalizacja - Systemy zarzadzania bazami danych', 
+                                      'Temat pracy magisterskiej - \"Pomiar uzytecznosci witryn i portali internetowych metoda programowa\"'],
+                               'en': ['Department of Electronics and Computer Science', 
+                                      'Specialization - Database Management Systems', 
+                                      'Thesis - \"Web pages measuring with software\"']}),
 
-class Employment():    
-    def __init__(self,company, start_date, end_date, position, description):
+                              Education({"en":"Koszalin University of Technology", "pl":"Politechnika Koszalinska"},
+                              {'en':'October 2000', 'pl':'Pazdziernik 2000'},
+                              {'en':'September 2004','pl':'Wrzesien 2004'},
+                              {'pl':'Inzynier', 'en':'Engineer\'s degree'},
+                              {'pl': ['Wydzial Elektroniki i informatyki', 
+                                      'Specjalizacja - Programowanie i sieci informatyczne', 
+                                      'Temat pracy inzynierskiej - \"Aplikacja Java do testowania uzytecznosci stron internetowych\"'],
+                               'en': ['Department of Electronics and Computer Science', 
+                                      'Specialization - Programming and Information Networks', 
+                                      'Thesis - \"Web page usalbility analyzer - Java application\"']})]
+
+class History():
+    def __init__(self, start_date, end_date, description):
+        self.start_date = start_date
+        self.end_date = end_date
+        self.description = description
+
+
+class Employment(History):    
+    def __init__(self, company, start_date, end_date, position, description):
         self.company = company
         self.start_date = start_date
         self.end_date = end_date
         self.position = position
         self.description = description
 
+class Education(History):
+    def __init__(self, school, start_date, end_date, degree, description):
+        self.school = school
+        self.start_date = start_date
+        self.end_date = end_date        
+        self.description = description
+        self.degree = degree
 
     
-
-class Education():
-    pass
-
-    
-application = webapp.WSGIApplication([('/',Main),(r'/cv.*', BusinessCard)], debug=True)
+application = webapp.WSGIApplication([('/', Main), (r'/cv.*', BusinessCard)], debug=True)
 
 
 

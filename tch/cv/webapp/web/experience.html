@@ -4,10 +4,10 @@
 
     <div class="content">
     
-    {% for history in content.employment %}				
-	  <h2>{{history.company}}</h2>
-      <h6><b>{{since_date}}: </b>{{history.start_date}}<b> {{to_date}}: </b>{{history.end_date}}</h6>
-      <p>{{history.position[language]}}</p>
+     {% for history in content.education %}				
+	  <h2>{{history.school[language]}}</h2>
+      <h6><b>Od: </b>{{history.start_date[language]}}<b> Do: </b>{{history.end_date[language]}}</h6>
+      <p>{{history.degree[language]}}</p>
       <ul>
       	{% for desc in history.description[language] %}	
         	<li>{{desc}}</li>

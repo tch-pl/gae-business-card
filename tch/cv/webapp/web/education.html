@@ -1,103 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">  
-<head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <title>Prosty Blog - szablonystron.org</title>
-  <meta name="description" content="" /> 
-  <link rel="stylesheet" href="/static/pblog.css" type="text/css" />
-</head>
-<body>
-<div class="external">
-  <div id="logo">
-    <div>
-      <h1><a href="/cv/" title="{{full_name}}" rel="home">{{content.profession}}:{{content.full_name}}</a></h1>
-      <h2><a href="./">szablonystron.org</a></h2>
-    </div>
-  </div>
-  <ul id="menu">
-  	{% for item in menu %}
-		<li><a href="/cv/{{language}}/{{item.link}}" title="">{{item.description[language]}}</a></li>
-	{% endfor %}
-  </ul>
+{% extends "index.html" %}
+{% block content %}
   <div id="main">
-<!--     <div class="sidebar"> -->
-<!--       <h2>Lorem ipsum</h2> -->
-<!--       <ul> -->
-<!--         <li><a href="./">Lorem ipsum dolor sit </a></li> -->
-<!--         <li><a href="./">Phasellus vitae magna id</a></li> -->
-<!--         <li><a href="./">Sed fringilla semper </a></li> -->
-<!--         <li><a href="./">Morbi condimentum </a></li> -->
-<!--         <li><a href="./">Duis scelerisque nisi dui, </a></li> -->
-<!--         <li><a href="./">Etiam vel justo eu ipsum Aenean dictum sollicitu</a></li> -->
-<!--         <li><a href="./">Etiam in purus vel nisi</a></li>  -->
-<!--       </ul> -->
-<!--       <h2>Dolor sit amet</h2> -->
-<!--       <ul> -->
-<!--         <li><a href="./">Lorem ipsum dolor sit </a></li> -->
-<!--         <li><a href="./">Phasellus vitae magna id</a></li> -->
-<!--         <li><a href="./">Sed fringilla semper </a></li> -->
-<!--         <li><a href="./">Morbi condimentum </a></li> -->
-<!--       </ul> -->
-<!--     </div> -->
-    <div class="content">
-      <h2>Witaj na mojej stronie</h2>
-      <h6><b>Dodano:</b> 27.08.2009 ; 19:00 <b>Autor:</b> MarcinCC <b>Edit:</b> 28.09.2009 ; 19:15</h6>
-      <p>Lorem ipsum dolor sit amet consectetuer semper at Suspendisse eros In. Lorem et Aenean fringilla ac cursus et id at lacus ipsum. Accumsan iaculis condimentum id interdum natoque in magna nisl eget Aenean. Pharetra quis tincidunt urna justo nulla convallis in pretium Mauris sagittis. Lobortis ut aliquet nisl facilisis sed sollicitudin faucibus morbi lorem sagittis. Malesuada interdum et tristique dui vitae purus aliquet rutrum tortor tellus. Nunc lacinia.</p>
-      <h5><a href="./">Więcej...</a></h5>
-      
-      <h2>sit amet consectetuer semper at Suspendisse</h2>
-      <h6><b>Dodano:</b> 27.08.2009 ; 19:00 <b>Autor:</b> MarcinCC <b>Edit:</b> 28.09.2009 ; 19:15</h6>
-      <p>Lorem ipsum dolor sit amet consectetuer semper at Suspendisse eros In. Lorem et Aenean fringilla ac cursus et id at lacus ipsum. Accumsan iaculis condimentum id interdum natoque in magna nisl eget Aenean. Pharetra quis tincidunt urna justo nulla convallis in pretium Mauris sagittis. Lobortis ut aliquet nisl facilisis sed sollicitudin faucibus morbi lorem sagittis. Malesuada interdum et tristique dui vitae purus aliquet rutrum tortor tellus. Nunc lacinia.</p>
-      <ul>
-        <li>Lorem ipsum dolor sit </li>
-        <li>Phasellus vitae magna id</li>
-        <li>Sed fringilla semper </li>
-        <li>Morbi condimentum </li>
-        <li>Duis scelerisque nisi dui, </li>
-        <li>Etiam vel justo eu ipsum Aenean dictum sollicitu</li>
-        <li>Etiam in purus vel nisi</li> 
-      </ul>
-      <h5><a href="./">Więcej...</a></h5>
 
-      <h2>Tabelka</h2>
-      <h6><b>Dodano:</b> 27.08.2009 ; 19:00 <b>Autor:</b> MarcinCC <b>Edit:</b> 28.09.2009 ; 19:15</h6>
-        <table>
-          <tr>
-            <th>Lorem ipsum</th>
-            <th>Lorem ipsum</th>
-            <th>Lorem ipsum</th>
-          </tr>
-          <tr>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-          </tr>
-          <tr>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-          </tr>
-          <tr>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-          </tr>
-          <tr>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-            <td>Lorem ipsum</td>
-          </tr>
-        </table>
-      <h5><a href="./">Więcej...</a></h5>
-      
+    <div class="content">
+    
+     {% for history in content.education %}				
+	  <h2>{{history.school[language]}}</h2>
+      <h6><b>{{since_date}}: </b>{{history.start_date[language]}}<b> {{to_date}}: </b>{{history.end_date[language]}}</h6>
+      <p>{{history.degree[language]}}</p>
+      <ul>
+      	{% for desc in history.description[language] %}	
+        	<li>{{desc}}</li>
+        {% endfor %}         
+      </ul>
+      <h5><a href="./"></a></h5>
+   {% endfor %}   
+     
     </div>
   </div>
-  <div id="footer">
-          <p>Copyright &copy; 2012; Projekt: SzablonyStron.org - <a href="http://szablonystron.org">darmowe szablony stron html</a>, zdrowa skóra w <a href="http://www.korona.krakow.pl/spa/sauny.html">sauna infrared Kraków</a></p><!--link_baza_stop-->
-  </div>
-  <div class="clear"></div>
-</div>
-
-</body>
-</html>
+ {% endblock %}
+ 
