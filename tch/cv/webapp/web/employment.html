@@ -6,8 +6,8 @@
     
     {% for history in content.employment %}				
 	  <h2>{{history.company}}</h2>
-      <h6><b>{{since_date}}: </b>{{history.start_date}}<b> {{to_date}}: </b>{{history.end_date}}</h6>
-      <p>{{history.position[language]}}</p>
+      <h6><b>{{since_date}}: </b><span class="date">{{history.start_date}}</span><b> {{to_date}}: </b><span class="date">{{history.end_date}}</span></h6>
+      <p><b>{{history.position[language]}}</b></p>
       <ul>
       	{% for desc in history.description[language] %}	
         	<li>{{desc}}</li>

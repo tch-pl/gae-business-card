@@ -12,7 +12,12 @@
       	{% for desc in history.description[language] %}	
         	<li>{{desc}}</li>
         {% endfor %}         
+        {% for desc in history.additional_data[language] %}	
+        	<li>{{desc}}</li>
+        {% endfor %}
       </ul>
+      	
+      
       <h5><a href="./"></a></h5>
    {% endfor %}   
      

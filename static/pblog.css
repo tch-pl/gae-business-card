@@ -33,6 +33,10 @@ h5 {
   font-size:14px; }
 h6 {
   font-size:11px; }
+
+h6 .date{
+  margin-right: 30px; }
+  
 p {
   margin: 0;
   padding: 5px 0 5px 0; }
