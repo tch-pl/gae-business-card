@@ -4,15 +4,16 @@
 
     <div class="content">
     
-     {% for history in content.education %}				
-	  <h2>{{history.school[language]}}</h2>
-      <h6><b>{{since_date}}: </b>{{history.start_date[language]}}<b> {{to_date}}: </b>{{history.end_date[language]}}</h6>
-      <p>{{history.degree[language]}}</p>
+     {% for history in content.education %}
+               
+	  <h2>{{history['school'][language]}}</h2>
+      <h6><b>{{since_date}}: </b>{{history['since'][language]}}<b> {{to_date}}: </b>{{history['until'][language]}}</h6>
+      <p>{{history['degree'][language]}}</p>
       <ul>
-      	{% for desc in history.description[language] %}	
+      	{% for desc in history['division'][language] %}	
         	<li>{{desc}}</li>
         {% endfor %}         
-        {% for desc in history.additional_data[language] %}	
+        {% for desc in history['other'][language] %}	
         	<li>{{desc}}</li>
         {% endfor %}
       </ul>
