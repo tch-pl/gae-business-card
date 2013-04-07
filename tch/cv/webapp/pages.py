@@ -16,6 +16,7 @@ template_path = 'tch/cv/webapp/web/'
 default_language = 'pl'
 supported_languages = ['pl', 'en']
 default_controller = 'about'
+default_ajax_controller = 'ajax_certs'
 
 class MenuItem():
     template = None
@@ -63,16 +64,17 @@ def splitURLPath(path):
     if path.startswith('/'):
         path = path.lstrip('/')
     splitted_path = path.split('/')
-    
-    if len(splitted_path) > 2:
-        return [splitted_path[0], splitted_path[1], splitted_path[2]]        
-    elif len(splitted_path) > 1:
-        return [splitted_path[0], splitted_path[1]]
+    return splitted_path
+   # if len(splitted_path) > 2:
+    #    return [splitted_path[0], splitted_path[1], splitted_path[2]]        
+    #elif len(splitted_path) > 1:
+     #   return [splitted_path[0], splitted_path[1]]
     
 def isLanguageSupported(language):
-    for lang in supported_languages:
-        if lang == language:
-            return True
+    
+    if language in supported_languages:
+        return True
+    
     return False
 
 #class CreateCV(webapp.RequestHandler):
@@ -138,12 +140,23 @@ class BusinessCard(webapp.RequestHandler):
 class CVRPCHandler(webapp.RequestHandler):
     """ Will handle the RPC requests."""
     def get(self):
-        self.error(403) # under construction: access denied
-
+        
+        splitted = splitURLPath(self.request.path)        
+        language = default_language
+        if splitted is not None and len(splitted) > 1 and isLanguageSupported(splitted[1]):
+            language = splitted[1]                
+        controller_name = None
+        if splitted is not None and len(splitted) == 4:
+            controller_name = splitted[2] + "_" +splitted[3]
+        else:
+            controller_name = default_ajax_controller    
+        #template_values = self.resolveModel(language, controller_name) 
+        #self.response.out.write(templateResolve(controller_name).render(template_values))        
+        self.response.out.write(splitted)
 
 
     
-application = webapp.WSGIApplication([('/', Main), (r'/cv.*', BusinessCard), (r'/cv/ajax/.*', CVRPCHandler)], debug=True)
+application = webapp.WSGIApplication([('/', Main), (r'/cv.*/ajax.*', CVRPCHandler), (r'/cv.*', BusinessCard)], debug=True)
 
 
 
