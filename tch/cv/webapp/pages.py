@@ -2,7 +2,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 import jinja2
-import json
+from tch.cv.model.ext import CVModel
 
 """Author: Tomasz Chrul"""
 
@@ -39,7 +39,7 @@ class MenuItem():
 menu = [MenuItem('about', "about.html", {"pl":"O mnie", "en":"About myself"}),
         MenuItem('employment', "employment.html", {"pl":"Zatrudnienie", "en":"Employment"}),
              MenuItem('education', "education.html", {"pl":"Edukacja", "en":"Education"}),
-             MenuItem('experience', "index.html", {"pl":u"Doświadczenie", "en":"Experience"})
+             MenuItem('experience', "experience_certificates.html", {"pl":u"Doświadczenie", "en":"Experience"})
              ]
 
 
@@ -127,7 +127,7 @@ class BusinessCard(webapp.RequestHandler):
         return model
     
     def resolveContent(self, controller_name, user=""):
-        controlled_content = CVContentFactory().generateContent(controller_name)
+        controlled_content = CVModel.CVContentFactory().generateContent(controller_name)
         main_content = {"profession": "Software Engineer",
                  "full_name" : "Tomasz Chrul"}
         
@@ -135,53 +135,15 @@ class BusinessCard(webapp.RequestHandler):
         content.update(controlled_content)                                        
         return content
 
-
-class CVContentFactory():
-    def generateContent(self, controller_name, user=""):
-        historyContent = HistoryContent()        
-        if 'employment' == controller_name:
-            return {"employment" : historyContent.employmentHistory}
-        elif 'education' == controller_name:
-            return {"education" : historyContent.educationHistory}
-        elif 'experience' == controller_name:
-            return {"education" : historyContent.educationHistory}
-        elif 'about' == controller_name:
-            return {"education" : historyContent.educationHistory}
-        else:
-            return {"employment" : historyContent.employmentHistory}
-
-class HistoryContent():            
-    def __init__(self, user=""):
-        self.employmentHistory = json.load(open('data/employment.json', 'r')) 
-        self.educationHistory = json.load(open('data/education.json', 'r')) 
- 
-
-class History():
-    def __init__(self, start_date, end_date, description):
-        self.start_date = start_date
-        self.end_date = end_date
-        self.description = description
+class CVRPCHandler(webapp.RequestHandler):
+    """ Will handle the RPC requests."""
+    def get(self):
+        self.error(403) # under construction: access denied
 
 
-class Employment(History):    
-    def __init__(self, company, start_date, end_date, position, description):
-        self.company = company
-        self.start_date = start_date
-        self.end_date = end_date
-        self.position = position
-        self.description = description
-
-class Education(History):
-    def __init__(self, school, start_date, end_date, degree, description, additional_data):
-        self.school = school
-        self.start_date = start_date
-        self.end_date = end_date        
-        self.description = description
-        self.degree = degree
-        self.additional_data = additional_data
 
     
-application = webapp.WSGIApplication([('/', Main), (r'/cv.*', BusinessCard)], debug=True)
+application = webapp.WSGIApplication([('/', Main), (r'/cv.*', BusinessCard), (r'/cv/ajax/.*', CVRPCHandler)], debug=True)
 
 
 
@@ -189,4 +151,4 @@ def main():
     run_wsgi_app(application)
 
 if __name__ == "__main__":
-   HistoryContent()
+   CVModel.HistoryContent()
