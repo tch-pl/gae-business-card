@@ -1,0 +1,10 @@
+List of todo things:
+1. Change JSON documents structure:
+- no mixing different languages in one document
+2. Simplify the way of template content generation
+- no need to include language reference - it have to be done inside controller
+3. Add a example of JSON document 
+- remove real data from repository
+- instead push example data/structures
+4. Optimize content factory
+- now factory reads all the data for every single request
