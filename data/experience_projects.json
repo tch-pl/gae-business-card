@@ -1,0 +1,39 @@
+[
+    {	"lang":"en",
+        "list": [
+        {"item":
+            {
+                "label": "Certificates",
+                "action": "certs"
+            }},
+            {"item":
+            {
+                "label": "Projects",
+                "action": "projects"
+            }},
+            {"item":
+            {
+                "label": "Skills",
+                "action": "skills"
+            }}
+        ]},
+        {"lang":"pl",
+        "list": [
+        	{"item":
+            {
+                "label": "Certyfikaty",
+                "action": "certs"
+            }},
+			{"item":            
+            {
+                "label": "Projekty",
+                "action": "projects"
+            }},
+            {"item":
+            {
+                "label": "Umiejętności",
+                "action": "skills"
+            }}
+        ]
+    }
+]

@@ -20,6 +20,20 @@ class CVContentFactory():
         else:
             return {"employment" : historyContent.employmentHistory}
 
+
+class CVExperienceContentFactory():
+    def generateContent(self, controller_name, user=""):
+        experience = Experience()        
+        if 'ajax_certs' == controller_name:
+            return {"certs" : experience.certs}
+        elif 'ajax_projects' == controller_name:
+            return {"projects" : experience.projects}
+        elif 'ajax_skills' == controller_name:
+            return {"skills" : experience.skills}
+        else:
+            return {"certs" : experience.certs}
+
+
 class HistoryContent():            
     def __init__(self, user=""):
         self.employmentHistory = json.load(open('data/employment.json', 'r')) 
@@ -53,5 +67,7 @@ class Education(History):
         
 class Experience():
     def __init__(self, user=""):
-        self.experience_categories = json.load(open('data/experience_categories.json', 'r'))
+        self.certs = json.load(open('data/experience_certs.json', 'r'))
+        self.projects = json.load(open('data/experience_projects.json', 'r'))
+        self.skills = json.load(open('data/experience_skills.json', 'r'))
         

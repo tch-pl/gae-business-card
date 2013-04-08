@@ -14,7 +14,7 @@
 <div class="external">
   <div id="logo">
     <div>
-      <h1><a href="/cv/" title="{{full_name}}" rel="home">{{content.profession}}:{{content.full_name}}</a></h1>
+      <h1><a href="/cv/" title="{{full_name}}" rel="home">{{main_content.main_data.profession[language]}}:{{main_content.main_data.full_name}}</a></h1>
       <h2>{% for lang in supported_languages %}
       		<a href="/cv/{{lang}}/{{controller_name}}"> /{{lang}} </a>
       	{% endfor %}

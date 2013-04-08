@@ -2,6 +2,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 import jinja2
+import json
 from tch.cv.model.ext import CVModel
 
 """Author: Tomasz Chrul"""
@@ -40,7 +41,7 @@ class MenuItem():
 menu = [MenuItem('about', "about.html", {"pl":"O mnie", "en":"About myself"}),
         MenuItem('employment', "employment.html", {"pl":"Zatrudnienie", "en":"Employment"}),
              MenuItem('education', "education.html", {"pl":"Edukacja", "en":"Education"}),
-             MenuItem('experience', "experience_certificates.html", {"pl":u"Doświadczenie", "en":"Experience"})
+             MenuItem('experience', "experience.html", {"pl":u"Doświadczenie", "en":"Experience"})
              ]
 
 
@@ -48,17 +49,7 @@ jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(template_path))
 
 
-def templateResolve(controller_name):    
-    template = None
-    if controller_name is None:
-        controller_name = default_controller
-    for item in menu:
-        if item.link == controller_name:           
-            template = jinja_environment.get_template(item.template)
-            break
-    if template is None: 
-            template = jinja_environment.get_template('index.html')
-    return template
+
 
 def splitURLPath(path):
     if path.startswith('/'):
@@ -108,20 +99,21 @@ class BusinessCard(webapp.RequestHandler):
         else:
             controller_name = default_controller    
         template_values = self.resolveModel(language, controller_name) 
-        self.response.out.write(templateResolve(controller_name).render(template_values))
+        self.response.out.write(self.templateResolve(controller_name).render(template_values))
 
     def resolveModel(self, language, controller_name):
         content = self.resolveContent(controller_name)
         title = {'pl': u'Trochę informacji o mnie', 'en': 'Some info about me'}
         since_date = {'pl': 'Od', 'en': 'Since'}
         to_date = {'pl': 'Do', 'en': 'To'}
-        
+        main_content = json.load(open('data/main_content.json', 'r'))
         model = {
                  'menu' : menu,
                  'language' : language,
                  'title' : title,
                  'supported_languages' : supported_languages,
                  'content' : content,
+                 'main_content' : main_content,
                  'controller_name' : controller_name,
                  'since_date' : since_date[language],
                  'to_date' : to_date[language]
@@ -130,17 +122,23 @@ class BusinessCard(webapp.RequestHandler):
     
     def resolveContent(self, controller_name, user=""):
         controlled_content = CVModel.CVContentFactory().generateContent(controller_name)
-        main_content = {"profession": "Software Engineer",
-                 "full_name" : "Tomasz Chrul"}
-        
-        content = main_content.copy()
-        content.update(controlled_content)                                        
-        return content
+        return controlled_content
+    
+    def templateResolve(self, controller_name):    
+        template = None
+        if controller_name is None:
+            controller_name = default_controller
+        for item in menu:
+            if item.link == controller_name:           
+                template = jinja_environment.get_template(item.template)
+                break
+        if template is None: 
+                template = jinja_environment.get_template('index.html')
+        return template
 
 class CVRPCHandler(webapp.RequestHandler):
     """ Will handle the RPC requests."""
-    def get(self):
-        
+    def get(self):        
         splitted = splitURLPath(self.request.path)        
         language = default_language
         if splitted is not None and len(splitted) > 1 and isLanguageSupported(splitted[1]):
@@ -149,12 +147,36 @@ class CVRPCHandler(webapp.RequestHandler):
         if splitted is not None and len(splitted) == 4:
             controller_name = splitted[2] + "_" +splitted[3]
         else:
-            controller_name = default_ajax_controller    
-        #template_values = self.resolveModel(language, controller_name) 
-        #self.response.out.write(templateResolve(controller_name).render(template_values))        
-        self.response.out.write(splitted)
+            controller_name = default_ajax_controller
+        if controller_name is None:
+            controller_name = default_ajax_controller        
+        template_values = self.resolveModel(language, controller_name) 
+        self.response.out.write(self.templateResolve(controller_name).render(template_values))        
 
+    def resolveModel(self, language, controller_name):
+        content = self.resolveContent(controller_name)     
+        
+        model = {
+                 'language' : language,
+                 'supported_languages' : supported_languages,
+                 'content' : content,                
+                 'controller_name' : controller_name
+                 }
+        return model
+    
+    def resolveContent(self, controller_name, user=""):
+        controlled_content = CVModel.CVExperienceContentFactory().generateContent(controller_name)
+        return controlled_content
 
+    def templateResolve(self, controller_name):    
+        template = None
+        for item in menu:
+            if item.link == controller_name:           
+                template = jinja_environment.get_template(item.template)
+                break
+        if template is None: 
+                template = jinja_environment.get_template('empty_dynamic_content.html')
+        return template
     
 application = webapp.WSGIApplication([('/', Main), (r'/cv.*/ajax.*', CVRPCHandler), (r'/cv.*', BusinessCard)], debug=True)
 
