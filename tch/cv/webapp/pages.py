@@ -19,6 +19,9 @@ supported_languages = ['pl', 'en']
 default_controller = 'about'
 default_ajax_controller = 'ajax_certs'
 
+default_template = "about.html"
+default_ajax_template = 'empty_dynamic_content.html'
+
 class MenuItem():
     template = None
     link = None
@@ -60,14 +63,30 @@ def splitURLPath(path):
     #    return [splitted_path[0], splitted_path[1], splitted_path[2]]        
     #elif len(splitted_path) > 1:
      #   return [splitted_path[0], splitted_path[1]]
-    
+
+def currentLanguage(config):
+    language = default_language
+    if config is not None and len(config) > 1 and isLanguageSupported(config[1]):
+        language = config[1]
+    return language
+
 def isLanguageSupported(language):
-    
     if language in supported_languages:
         return True
-    
     return False
 
+def currentController(config):
+    controller_name = default_controller 
+    if config is not None and len(config) == 3:
+        controller_name = config[2]
+    return controller_name
+
+def currentAjaxController(config):
+    controller_name = default_ajax_controller 
+    if config is not None and len(config) == 4:
+            controller_name = config[2] + "_" +config[3]
+    return controller_name
+        
 #class CreateCV(webapp.RequestHandler):
 #    def get(self):
 #        self.response.headers['Content-Type'] = 'text/plain'
@@ -90,14 +109,9 @@ class Main(webapp.RequestHandler):
 class BusinessCard(webapp.RequestHandler):
     def get(self):
         splitted = splitURLPath(self.request.path)        
-        language = default_language
-        if splitted is not None and len(splitted) > 1 and isLanguageSupported(splitted[1]):
-            language = splitted[1]                
-        controller_name = None
-        if splitted is not None and len(splitted) == 3:
-            controller_name = splitted[2]
-        else:
-            controller_name = default_controller    
+        language = currentLanguage(splitted)
+        controller_name = currentController(splitted)
+        
         template_values = self.resolveModel(language, controller_name) 
         self.response.out.write(self.templateResolve(controller_name).render(template_values))
 
@@ -125,37 +139,25 @@ class BusinessCard(webapp.RequestHandler):
         return controlled_content
     
     def templateResolve(self, controller_name):    
-        template = None
-        if controller_name is None:
-            controller_name = default_controller
+        template = jinja_environment.get_template(default_template)
         for item in menu:
             if item.link == controller_name:           
                 template = jinja_environment.get_template(item.template)
                 break
-        if template is None: 
-                template = jinja_environment.get_template('index.html')
         return template
 
 class CVRPCHandler(webapp.RequestHandler):
+    
     """ Will handle the RPC requests."""
     def get(self):        
         splitted = splitURLPath(self.request.path)        
-        language = default_language
-        if splitted is not None and len(splitted) > 1 and isLanguageSupported(splitted[1]):
-            language = splitted[1]                
-        controller_name = None
-        if splitted is not None and len(splitted) == 4:
-            controller_name = splitted[2] + "_" +splitted[3]
-        else:
-            controller_name = default_ajax_controller
-        if controller_name is None:
-            controller_name = default_ajax_controller        
+        language = currentLanguage(splitted)
+        controller_name = currentAjaxController(splitted)
         template_values = self.resolveModel(language, controller_name) 
         self.response.out.write(self.templateResolve(controller_name).render(template_values))        
 
     def resolveModel(self, language, controller_name):
         content = self.resolveContent(controller_name)     
-        
         model = {
                  'language' : language,
                  'supported_languages' : supported_languages,
@@ -169,13 +171,11 @@ class CVRPCHandler(webapp.RequestHandler):
         return controlled_content
 
     def templateResolve(self, controller_name):    
-        template = None
+        template = jinja_environment.get_template(default_ajax_template)
         for item in menu:
             if item.link == controller_name:           
                 template = jinja_environment.get_template(item.template)
                 break
-        if template is None: 
-                template = jinja_environment.get_template('empty_dynamic_content.html')
         return template
     
 application = webapp.WSGIApplication([('/', Main), (r'/cv.*/ajax.*', CVRPCHandler), (r'/cv.*', BusinessCard)], debug=True)

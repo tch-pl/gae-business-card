@@ -5,7 +5,7 @@
     <div class="content">
     
     {% for history in content.employment %}
-	  <h2>{{history['company'][language]}}</h2>
+	  <h2>{{history['company']}}</h2>
       <h6><b>{{since_date}}: </b><span class="date">{{history['since']}}</span><b> {{to_date}}: </b><span class="date">{{history['until']}}</span></h6>
       <p><b>{{history['role'][language]}}</b></p>
       <ul>
