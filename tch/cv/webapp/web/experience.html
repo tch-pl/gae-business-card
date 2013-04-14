@@ -2,24 +2,14 @@
 {% block content %}
   <div id="main">
 		<div class="sidebar">
-		
-		
-	      <h2></h2>
 	      <ul>
-	      	{% for item in content.experience%}
-	      	
-	      		{%if item.lang == language%}
-	      			{% for exp in item.list%}
-	        			<li><a class="{{exp.item.action}}" href="#{{exp.item.action}}">{{exp.item.label}}</a></li>
-	        		{% endfor %}  
-	        	{%endif%}
+	      	{% for item in content.experience[language]%}
+				<li><a class="{{item.action}}" href="#{{item.action}}">{{item.label}}</a></li>
 	        {% endfor %}   
 	      </ul>
 	      
 	    </div>
     <div class="content">
-    {% block inside_content %}{% endblock %}
-     
     </div>
   </div>
 {% endblock %}

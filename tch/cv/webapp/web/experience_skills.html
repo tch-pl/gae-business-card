@@ -1,0 +1,84 @@
+<h4>
+	{% for item in content.skills[language] %}
+		{{item.lang_header}}
+	{% endfor %}
+</h4>
+<table>
+	<tr>
+		<th></th>
+    	{% for item in content.skills[language] %}
+    		{% for header in item.skills_headers %}
+        		<th>{{header}}</th>
+        	{% endfor %}
+		{% endfor %}
+	</tr>
+		{% for item in content.skills.programming_languages %}
+		<tr>
+        	<td>{{item.name}}</td>
+        	{%for number in range(1,6) %}
+        		{%if item.skill >= number%}        		
+        			<td>X</td>
+        		{%else%}
+        			<td></td>
+        		{% endif %}
+        	{% endfor %}
+        </tr>
+		{% endfor %}
+</table>
+<!-- frameworks -->
+<h4>
+	{% for item in content.skills[language] %}
+		{{item.framework_header}}
+	{% endfor %}
+</h4>
+<table>
+	<tr>
+		<th></th>
+    	{% for item in content.skills[language] %}
+    		{% for header in item.skills_headers %}
+        		<th>{{header}}</th>
+        	{% endfor %}
+		{% endfor %}
+	</tr>
+		{% for item in content.skills.frameworks %}
+		<tr>
+        	<td>{{item.name}}</td>
+        	{%for number in range(1,6) %}
+        		{%if item.skill >= number%}        		
+        			<td>X</td>
+        		{%else%}
+        			<td></td>
+        		{% endif %}
+        	{% endfor %}
+        </tr>
+		{% endfor %}
+</table>
+
+<!-- frameworks -->
+<h4>
+	{% for item in content.skills[language] %}
+		{{item.tools_header}}
+	{% endfor %}
+</h4>
+<table>
+	<tr>
+		<th></th>
+    	{% for item in content.skills[language] %}
+    		{% for header in item.skills_headers %}
+        		<th>{{header}}</th>
+        	{% endfor %}
+		{% endfor %}
+	</tr>
+		{% for item in content.skills.tools %}
+		<tr>
+        	<td>{{item.name}}</td>
+        	{%for number in range(1,6) %}
+        		{%if item.skill >= number%}        		
+        			<td>X</td>
+        		{%else%}
+        			<td></td>
+        		{% endif %}
+        	{% endfor %}
+        </tr>
+		{% endfor %}
+</table>

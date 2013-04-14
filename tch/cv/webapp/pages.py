@@ -3,7 +3,8 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 import jinja2
 import json
-from tch.cv.model.ext import CVModel
+import logging
+from tch.cv.model.ext import CVModel 
 
 """Author: Tomasz Chrul"""
 
@@ -33,12 +34,9 @@ class MenuItem():
         self.description = description
         
     def getDescription(self, current_language):
-        current_description = None
-        if current_language is not None:
-            current_description = self.description.get(current_language)
-        if  current_description is None:
-            current_description = self.description.get("pl")
-        return current_description
+        if isLanguageSupported(current_language):
+            return self.description.get(current_language)
+        return self.description.get(default_language)
         
 
 menu = [MenuItem('about', "about.html", {"pl":"O mnie", "en":"About myself"}),
@@ -47,11 +45,13 @@ menu = [MenuItem('about', "about.html", {"pl":"O mnie", "en":"About myself"}),
              MenuItem('experience', "experience.html", {"pl":u"Doświadczenie", "en":"Experience"})
              ]
 
+experience = [MenuItem('ajax_certs', "experience_certs.html"),
+              MenuItem('ajax_skills', "experience_skills.html")]
+
+
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(template_path))
-
-
 
 
 def splitURLPath(path):
@@ -59,10 +59,6 @@ def splitURLPath(path):
         path = path.lstrip('/')
     splitted_path = path.split('/')
     return splitted_path
-   # if len(splitted_path) > 2:
-    #    return [splitted_path[0], splitted_path[1], splitted_path[2]]        
-    #elif len(splitted_path) > 1:
-     #   return [splitted_path[0], splitted_path[1]]
 
 def currentLanguage(config):
     language = default_language
@@ -83,27 +79,14 @@ def currentController(config):
 
 def currentAjaxController(config):
     controller_name = default_ajax_controller 
-    if config is not None and len(config) == 4:
-            controller_name = config[2] + "_" +config[3]
+    if config is not None and len(config) > 3:
+            controller_name = config[3] + "_" +config[4]
     return controller_name
         
-#class CreateCV(webapp.RequestHandler):
-#    def get(self):
-#        self.response.headers['Content-Type'] = 'text/plain'
-#        template_values = {
-#            'position_categories': tch.cv.model.ext.CV.position_categories,
-#        }
-#        self.response.out.write(templateResolve('/create').render(template_values))
-#        
-#    def post(self):
-#        self.response.headers['Content-Type'] = 'text/plain'
-#        template_values = {}
-#        self.response.out.write(templateResolve('/cv').render(template_values))
 
 class Main(webapp.RequestHandler):
     def get(self):
         self.redirect("/cv")
-
 
    
 class BusinessCard(webapp.RequestHandler):
@@ -111,8 +94,8 @@ class BusinessCard(webapp.RequestHandler):
         splitted = splitURLPath(self.request.path)        
         language = currentLanguage(splitted)
         controller_name = currentController(splitted)
-        
-        template_values = self.resolveModel(language, controller_name) 
+        logging.info("Template lookup for: " + controller_name)
+        template_values = self.resolveModel(language, controller_name)
         self.response.out.write(self.templateResolve(controller_name).render(template_values))
 
     def resolveModel(self, language, controller_name):
@@ -121,6 +104,7 @@ class BusinessCard(webapp.RequestHandler):
         since_date = {'pl': 'Od', 'en': 'Since'}
         to_date = {'pl': 'Do', 'en': 'To'}
         main_content = json.load(open('data/main_content.json', 'r'))
+        logging.info(content)
         model = {
                  'menu' : menu,
                  'language' : language,
@@ -150,6 +134,7 @@ class CVRPCHandler(webapp.RequestHandler):
     
     """ Will handle the RPC requests."""
     def get(self):        
+        logging.info(self.request.path)
         splitted = splitURLPath(self.request.path)        
         language = currentLanguage(splitted)
         controller_name = currentAjaxController(splitted)
@@ -164,15 +149,17 @@ class CVRPCHandler(webapp.RequestHandler):
                  'content' : content,                
                  'controller_name' : controller_name
                  }
+        logging.info(content)
         return model
     
     def resolveContent(self, controller_name, user=""):
         controlled_content = CVModel.CVExperienceContentFactory().generateContent(controller_name)
         return controlled_content
 
-    def templateResolve(self, controller_name):    
+    def templateResolve(self, controller_name):
+        logging.info("Template lookup for: " + controller_name)
         template = jinja_environment.get_template(default_ajax_template)
-        for item in menu:
+        for item in experience:
             if item.link == controller_name:           
                 template = jinja_environment.get_template(item.template)
                 break

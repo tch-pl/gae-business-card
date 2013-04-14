@@ -1,39 +1,38 @@
-[
-    {	"lang":"en",
-        "list": [
-        {"item":
+
+    {	
+        "en": [
             {
-                "label": "Certificates",
-                "action": "certs"
-            }},
-            {"item":
+                "label": "SCJP 6"                
+            },
             {
-                "label": "Projects",
-                "action": "projects"
-            }},
-            {"item":
+                "label": "Professional Scrum Master I"              
+            },
             {
-                "label": "Skills",
-                "action": "skills"
-            }}
-        ]},
-        {"lang":"pl",
-        "list": [
-        	{"item":
+                "label": "FileNet P8 Certified: CM Developer"                
+            },
             {
-                "label": "Certyfikaty",
-                "action": "certs"
-            }},
-			{"item":            
+                "label": "FileNet P8 Certified: BPM Developer"                
+            },
             {
-                "label": "Projekty",
-                "action": "projects"
-            }},
-            {"item":
+                "label": "Microsoft SQL Server: Certificate of Achievement"                
+            }
+        ],
+        
+        "pl": [
+         	{
+         		"label": "SCJP 6"                
+            },
             {
-                "label": "Umiejętności",
-                "action": "skills"
-            }}
+            	"label": "Professional Scrum Master I"              
+            },
+            {
+            	"label": "FileNet P8 Certified: CM Developer"                
+            },
+            {
+            	"label": "FileNet P8 Certified: BPM Developer"                
+            },
+            {
+            	"label": "Microsoft SQL Server: Certificate of Achievement"                
+            }
         ]
     }
-]

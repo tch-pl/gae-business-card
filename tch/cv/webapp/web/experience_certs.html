@@ -1,12 +1,5 @@
-<div id="main">
-
-    <div class="content">
-    
-     {% for cert in content.certs %}
-               
-	  <h2>{{cert}}</h2>
-      
-   {% endfor %}   
-     
-    </div>
-  </div>
+<ul>
+	{% for cert in content.certs[language] %}
+		<li>{{cert.label}}</li>
+	{% endfor %}   
+</ul>
