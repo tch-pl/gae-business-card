@@ -1,8 +1,21 @@
-
-    {	
+{	
+	"labels" : {"trainings": {
+								"en":"Trainings",
+								"pl":"Szkolenia"
+							},
+				"certs" : {
+					"en":"Certificates",
+					"pl":"Certyfikaty"
+				}
+				
+			},
+	"certs": {	
         "en": [
             {
                 "label": "SCJP 6"                
+            },            
+            {
+                "label": "10gen: M101J MongoDB for Java Developers"                
             },
             {
                 "label": "Professional Scrum Master I"              
@@ -16,11 +29,15 @@
             {
                 "label": "Microsoft SQL Server: Certificate of Achievement"                
             }
+            
         ],
         
         "pl": [
          	{
          		"label": "SCJP 6"                
+            },
+            {
+                "label": "10gen: M101J MongoDB for Java Developers"                
             },
             {
             	"label": "Professional Scrum Master I"              
@@ -35,4 +52,63 @@
             	"label": "Microsoft SQL Server: Certificate of Achievement"                
             }
         ]
+    },
+    "trainings": {	
+        "en": [
+            {
+                "label": "10gen: M101J MongoDB for Java Developers"                
+            },            
+            {
+                "label": "Professional Scrum Master"                
+            },
+            {
+                "label": "Web application security (OWASP)"              
+            },
+            {
+                "label": "GIT – a distributed version control system"                
+            },
+            {
+                "label": "“Soft skills” trainings (assertiveness, creativity, communication)"                
+            },
+            {
+                "label": "Filenet CM API Java Programming Virtual Lab"                
+            },
+            {
+                "label": "Filenet BPM API Java Programming Virtual Lab"                
+            }
+            ,
+            {
+                "label": "P8 Web Application Toolkit Programmig Virtual Lab"                
+            }
+            
+        ],
+        
+        "pl": [
+         	{
+                "label": "10gen: M101J MongoDB for Java Developers"                
+            },            
+            {
+                "label": "Professional Scrum Master"                
+            },
+            {
+                "label": "Bezpieczeństwo aplikacji internetowych (OWASP)"              
+            },
+            {
+                "label": "GIT – rozproszony system kontroli wersji"                
+            },
+            {
+                "label": "cykl szkoleń z umiejętności miękkich (asertywność, kreatywność, komunikacja)"                
+            },
+            {
+                "label": "Filenet CM API Java Programming Virtual Lab"                
+            },
+            {
+                "label": "Filenet BPM API Java Programming Virtual Lab"                
+            }
+            ,
+            {
+                "label": "P8 Web Application Toolkit Programmig Virtual Lab"                
+            }        ]
     }
+			
+}

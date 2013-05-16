@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">  
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
 <head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <title>{{title[language]}}</title>
-  <meta name="description" content="" /> 
-  <link rel="stylesheet" href="/static/pblog.css" type="text/css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/rpc.js"></script>
-  
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>{{title[language]}}</title>
+<meta name="description" content="" />
+<link rel="stylesheet" href="/static/pblog.css" type="text/css" />
+<!--jquery 1.3 -->
+<script type="text/javascript" src="/static/jquery.min.js">
+</script>
+<script type="text/javascript" src="/static/rpc.js"></script>
+
 </head>
 <body>
-<div class="external">
-  <div id="logo">
-    <div>
-      <h1><a href="/cv/" title="{{full_name}}" rel="home">{{main_content.main_data.profession[language]}}:{{main_content.main_data.full_name}}</a></h1>
-      <h2>{% for lang in supported_languages %}
-      		<a href="/cv/{{lang}}/{{controller_name}}"> /{{lang}} </a>
-      	{% endfor %}
-      </h2>
-    </div>
-  </div>
-  <ul id="menu">
-  	{% for item in menu %}
-  		
-		<li {%if controller_name==item.link%} class="selected"{% endif %}><a  href="/cv/{{language}}/{{item.link}}" title="">{{item.description[language]}}</a></li>
-	{% endfor %}
-  </ul>
-   {% block content %}{% endblock %}	
-  <div id="footer">
-          <p>Copyright &copy; 2012; Projekt: SzablonyStron.org - <a href="http://szablonystron.org">darmowe szablony stron html</a>, zdrowa skóra w <a href="http://www.korona.krakow.pl/spa/sauny.html">sauna infrared Kraków</a></p><!--link_baza_stop-->
-  </div>
-  <div class="clear"></div>
-</div>
+	<div class="external">
+		<div id="logo">
+			<div>
+				<h1>
+					<a href="/cv/" title="{{full_name}}" rel="home">{{main_content.main_data.profession[language]}}:{{main_content.main_data.full_name}}</a>
+				</h1>
+				<h2>
+					{% for lang in supported_languages %} <a
+						href="/cv/{{lang}}/{{controller_name}}"> /{{lang}} </a> {% endfor
+					%}
+				</h2>
+			</div>
+		</div>
+		<ul id="menu">
+			{% for item in menu %}
+
+			<li {%if controller_name==item.url_page_path%} class="selected"{% endif %}><a
+				href="/cv/{{language}}/{{item.url_page_path}}" title="">{{item.description[language]}}</a></li>
+			{% endfor %}
+		</ul>
+		{% block content %}{% endblock %}
+		<div id="footer">
+			<p>
+				Copyright &copy; 2012; Projekt: SzablonyStron.org - <a
+					href="http://szablonystron.org">darmowe szablony stron html</a>,
+				zdrowa skóra w <a href="http://www.korona.krakow.pl/spa/sauny.html">sauna
+					infrared Kraków</a>
+			</p>
+			<!--link_baza_stop-->
+		</div>
+		<div class="clear"></div>
+	</div>
 
 </body>
 </html>

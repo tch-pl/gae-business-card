@@ -1,5 +1,14 @@
-<ul>
-	{% for cert in content.certs[language] %}
-		<li>{{cert.label}}</li>
+{% if content.certs.certs %}
+	<h4>{{content.certs.labels.certs[language]}}</h4>
+	
+	{% for item in content.certs.certs[language]%}
+		<li>{{item.label}}</li>
 	{% endfor %}   
-</ul>
+{% endif %}	
+
+{% if content.certs.trainings %}
+<h4>{{content.certs.labels.trainings[language]}}</h4>
+	{% for item in content.certs.trainings[language]%}
+		<li>{{item.label}}</li>
+	{% endfor %}   
+{% endif %}	

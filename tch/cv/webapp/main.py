@@ -13,24 +13,27 @@ from tch.cv.model.ext import CVModel
 
 """
 
-
+''' CONFIGURATION PARAMETERS'''
 template_path = 'tch/cv/webapp/web/'
 default_language = 'pl'
 supported_languages = ['pl', 'en']
 default_controller = 'about'
 default_ajax_controller = 'ajax_certs'
-
 default_template = "about.html"
-default_ajax_template = 'empty_dynamic_content.html'
+exception_template = 'empty_dynamic_content.html'
+
+since_date = {'pl': 'Od', 'en': 'Since'}
+to_date = {'pl': 'Do', 'en': 'To'}
+
 
 class MenuItem():
     template = None
-    link = None
+    url_page_path = None
     description = {}
     
-    def __init__(self, link, template, description={}):
+    def __init__(self, template, url_page_path=exception_template,  description={}):
         self.template = template
-        self.link = link
+        self.url_page_path = url_page_path
         self.description = description
         
     def getDescription(self, current_language):
@@ -39,14 +42,15 @@ class MenuItem():
         return self.description.get(default_language)
         
 
-menu = [MenuItem('about', "about.html", {"pl":"O mnie", "en":"About myself"}),
-        MenuItem('employment', "employment.html", {"pl":"Zatrudnienie", "en":"Employment"}),
-             MenuItem('education', "education.html", {"pl":"Edukacja", "en":"Education"}),
-             MenuItem('experience', "experience.html", {"pl":u"Doświadczenie", "en":"Experience"})
+menu = [MenuItem(url_page_path='about', template="about.html", description={"pl":"O mnie", "en":"About myself"}),
+        MenuItem(url_page_path='employment', template="employment.html", description={"pl":"Zatrudnienie", "en":"Employment"}),
+             MenuItem(url_page_path='education', template="education.html", description={"pl":"Edukacja", "en":"Education"}),
+             MenuItem(url_page_path='experience', template="experience.html", description={"pl":u"Doświadczenie", "en":"Experience"})
              ]
 
-experience = [MenuItem('ajax_certs', "experience_certs.html"),
-              MenuItem('ajax_skills', "experience_skills.html")]
+experience = [MenuItem(url_page_path='ajax_certs',template="experience_certs.html"),
+              MenuItem(url_page_path='ajax_skills', template="experience_skills.html"),
+              MenuItem(url_page_path='ajax_projects', template="experience_projects.html")]
 
 
 
@@ -86,14 +90,23 @@ def currentAjaxController(config):
 
 class Main(webapp.RequestHandler):
     def get(self):
-        self.redirect("/cv")
+        self.redirect('/cv')
 
    
+
 class BusinessCard(webapp.RequestHandler):
+    ''' Handler for standard synchronous HTTP request'''
+    
     def get(self):
-        splitted = splitURLPath(self.request.path)        
-        language = currentLanguage(splitted)
-        controller_name = currentController(splitted)
+        '''URL context path knows about application state:
+            * first position is a application contxt entry
+            * current language is at second position   
+            * third position contains name for page controller that is obligated to return data
+            So there is need to parse URL path and split it content to array elements  
+        '''
+        splitted_url_path = splitURLPath(self.request.path)        
+        language = currentLanguage(splitted_url_path)
+        controller_name = currentController(splitted_url_path)
         logging.info("Template lookup for: " + controller_name)
         template_values = self.resolveModel(language, controller_name)
         self.response.out.write(self.templateResolve(controller_name).render(template_values))
@@ -101,8 +114,6 @@ class BusinessCard(webapp.RequestHandler):
     def resolveModel(self, language, controller_name):
         content = self.resolveContent(controller_name)
         title = {'pl': u'Trochę informacji o mnie', 'en': 'Some info about me'}
-        since_date = {'pl': 'Od', 'en': 'Since'}
-        to_date = {'pl': 'Do', 'en': 'To'}
         main_content = json.load(open('data/main_content.json', 'r'))
         logging.info(content)
         model = {
@@ -125,7 +136,7 @@ class BusinessCard(webapp.RequestHandler):
     def templateResolve(self, controller_name):    
         template = jinja_environment.get_template(default_template)
         for item in menu:
-            if item.link == controller_name:           
+            if item.url_page_path == controller_name:           
                 template = jinja_environment.get_template(item.template)
                 break
         return template
@@ -135,9 +146,9 @@ class CVRPCHandler(webapp.RequestHandler):
     """ Will handle the RPC requests."""
     def get(self):        
         logging.info(self.request.path)
-        splitted = splitURLPath(self.request.path)        
-        language = currentLanguage(splitted)
-        controller_name = currentAjaxController(splitted)
+        splitted_url_path = splitURLPath(self.request.path)        
+        language = currentLanguage(splitted_url_path)
+        controller_name = currentAjaxController(splitted_url_path)
         template_values = self.resolveModel(language, controller_name) 
         self.response.out.write(self.templateResolve(controller_name).render(template_values))        
 
@@ -158,9 +169,9 @@ class CVRPCHandler(webapp.RequestHandler):
 
     def templateResolve(self, controller_name):
         logging.info("Template lookup for: " + controller_name)
-        template = jinja_environment.get_template(default_ajax_template)
+        template = jinja_environment.get_template(exception_template)
         for item in experience:
-            if item.link == controller_name:           
+            if item.url_page_path == controller_name:           
                 template = jinja_environment.get_template(item.template)
                 break
         return template
@@ -173,4 +184,4 @@ def main():
     run_wsgi_app(application)
 
 if __name__ == "__main__":
-   CVModel.HistoryContent()
+    main()

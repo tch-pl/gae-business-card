@@ -36,19 +36,18 @@
 				"tools_header":"Tools"
 			},
             {
-            	"skills_headers":["Lame", "Competent", "Good", "Very good", "Excelent"]                   
+            	"skills_headers":["Lame", "Competent", "OK and still learning", "Very good", "Excelent"]                   
             }
         ],
         
-	"pl": [{"lang_header":"Języki programowania"},
-			{
-				"framework_header":"Frameworki"
+	"pl": [
+	       	{"lang_header":"Języki programowania"
+	       	},
+			{"framework_header":"Frameworki"
 			},
-			{
-				"tools_header":"Narzędzia"
+			{"tools_header":"Narzędzia"
 			},
-         	{
-         		"skills_headers":["Słabo", "Dostatecznie", "Dobrze", "Bardzo dobrze", "Doskonale"]
+         	{"skills_headers":["Słabo", "Dostatecznie", "OK, jeszcze się uczę", "Bardzo dobrze", "Doskonale"]
             }
         ]
     }
