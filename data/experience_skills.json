@@ -1,53 +1,176 @@
-{	
-	"programming_languages": [{"name":"Java","skill":4}, 
-	                          {"name":"Python","skill":3}, 
-	                          {"name":"SQL","skill":4},
-	                          {"name":"JavaScript","skill":2},
-	                          {"name":"HTML","skill":4},
-	                          {"name":"CSS","skill":2}],
-	
-	"frameworks": [{"name":"Spring","skill":4}, 
-	               {"name":"Hibernate","skill":3}, 
-	               {"name":"DWR","skill":4}, 
-	               {"name":"CXF","skill":3}, 
-	               {"name":"Freemarker","skill":5},
-	               {"name":"TestNG","skill":4},
-	               {"name":"JUnit","skill":4}],
-	
-	  "tools": 	[{"name":"Eclipse","skill":5}, 
-	               {"name":"NetBeans","skill":4}, 
-	           	   {"name":"Maven","skill":4}, 
-	           	   {"name":"SVN","skill":5}, 
-	           	   {"name":"Git","skill":3},
-	           	   {"name":"SoapUI","skill":4},
-	           	   {"name":"JMeter","skill":3},
-	           	   {"name":"SQL Developer","skill":4},
-	           	   {"name":"Jenkins","skill":3},
-	           	   {"name":"JIRA","skill":5},
-	           	   {"name":"SONAR","skill":3}],
-	
-	"en": [{
-				"lang_header":"Programming languages"
-			},
-			{
-				"framework_header":"Frameworks"
-			},
-			{
-				"tools_header":"Tools"
-			},
-            {
-            	"skills_headers":["Lame", "Competent", "OK and still learning", "Very good", "Excelent"]                   
-            }
-        ],
-        
-	"pl": [
-	       	{"lang_header":"Języki programowania"
-	       	},
-			{"framework_header":"Frameworki"
-			},
-			{"tools_header":"Narzędzia"
-			},
-         	{"skills_headers":["Słabo", "Dostatecznie", "OK, jeszcze się uczę", "Bardzo dobrze", "Doskonale"]
-            }
-        ]
+{
+  "programming_languages": [
+    {
+      "name": "Java",
+      "skill": 4
+    },
+    {
+      "name": "Python",
+      "skill": 3
+    },
+    {
+      "name": "SQL",
+      "skill": 4
+    },
+    {
+      "name": "JavaScript",
+      "skill": 3
+    },
+    {
+      "name": "HTML",
+      "skill": 4
+    },
+    {
+      "name": "XML",
+      "skill": 4
+    },
+    {
+      "name": "CSS",
+      "skill": 2
     }
+  ],
+  "frameworks": [
+    {
+      "name": "Spring",
+      "skill": 4
+    },
+    {
+      "name": "JSF",
+      "skill": 4
+    },
+    {
+      "name": "Hibernate",
+      "skill": 4
+    },
+    {
+      "name": "REST",
+      "skill": 4
+    },
+    {
+      "name": "DWR",
+      "skill": 4
+    },
+    {
+      "name": "CXF",
+      "skill": 3
+    },
+    {
+      "name": "Freemarker",
+      "skill": 5
+    },
+    {
+      "name": "TestNG",
+      "skill": 4
+    },
+    {
+      "name": "JUnit",
+      "skill": 4
+    },
+    {
+      "name": "OSGi",
+      "skill": 3
+    },
+    {
+      "name": "Spring Security",
+      "skill": 4
+    },
+    {
+      "name": "Angular",
+      "skill": 2
+    },
+    {
+      "name": "Google App Engine",
+      "skill": 2
+    }
+  ],
+  "tools": [
+    {
+      "name": "Eclipse",
+      "skill": 5
+    },
+    {
+      "name": "NetBeans",
+      "skill": 5
+    },
+    {
+      "name": "Maven",
+      "skill": 4
+    },
+    {
+      "name": "SVN",
+      "skill": 5
+    },
+    {
+      "name": "Git",
+      "skill": 4
+    },
+    {
+      "name": "SoapUI",
+      "skill": 4
+    },
+    {
+      "name": "JMeter",
+      "skill": 3
+    },
+    {
+      "name": "SQL Developer",
+      "skill": 4
+    },
+    {
+      "name": "MongoDB",
+      "skill": 3
+    },
+    {
+      "name": "Jenkins",
+      "skill": 4
+    },
+    {
+      "name": "JIRA",
+      "skill": 5
+    },
+    {
+      "name": "SONAR",
+      "skill": 3
+    }
+  ],
+  "en": [
+    {
+      "lang_header": "Programming languages"
+    },
+    {
+      "framework_header": "Frameworks and skillset"
+    },
+    {
+      "tools_header": "Tools"
+    },
+    {
+      "skills_headers": [
+        "Lame",
+        "Competent",
+        "OK and still learning",
+        "Very good",
+        "Excelent"
+      ]
+    }
+  ],
+  "pl": [
+    {
+      "lang_header": "Języki programowania"
+    },
+    {
+      "framework_header": "Frameworki i technologie"
+    },
+    {
+      "tools_header": "Narzędzia"
+    },
+    {
+      "skills_headers": [
+        "Słabo",
+        "Dostatecznie",
+        "OK, jeszcze się uczę",
+        "Bardzo dobrze",
+        "Doskonale"
+      ]
+    }
+  ]
+}

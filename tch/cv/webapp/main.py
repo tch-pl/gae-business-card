@@ -23,6 +23,7 @@ default_template = "about.html"
 exception_template = 'empty_dynamic_content.html'
 
 since_date = {'pl': 'Od', 'en': 'Since'}
+position = {'pl':'Stanowisko','en':'Position'}
 to_date = {'pl': 'Do', 'en': 'To'}
 
 

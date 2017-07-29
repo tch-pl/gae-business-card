@@ -1,4 +1,56 @@
 [
+	{
+        "company": "Asseco Poland",
+        "since": "2014-09",        
+        "role": {
+            "pl": "Projektant/programista",
+            "en": "Software Engineer"
+        },
+        "duties": {
+            "pl": [
+                "Programista w zespole tworzącym oprogramowanie klasy enterprise dla sektora telecom.","Odpowiedzialny za projekt, implementację, dokumentację, testy, analizę techniczną i ekspercką."
+            ],
+            "en": [
+                "Enterprise class software implementation."
+            ]
+        }
+    },
+	{
+        "company": "Fineos Polska Sp. z o.o.",
+        "since": "2014-04",
+		"until": "2014-08",        
+        "role": {
+            "pl": "Inżynier oprogramowania",
+            "en": "Senior Software Engineer"
+        },
+        "duties": {
+            "pl": [
+                "Programista w zespole tworzącym i utrzymującym oprogramowanie klasy enterprise."
+            ],
+            "en": [
+                "Enterprise class software implementation and maintenance"
+            ]
+        }
+    },
+	{
+        "company": "DC S.A.",
+        "since": "2013-06",
+		"until": "2014-03",        
+        "role": {
+            "pl": "Inżynier oprogramowania",
+            "en": "Software Engineer"
+        },
+        "duties": {
+            "pl": [
+                "Programista w zespole tworzącym oprogramowanie klasy enterprise z użyciem Java 7, OSGi (Apache Felix, Blueprint), SOA, Spring Framework, MongoDb, Javacript",
+                "Tworzenie dokumentacji technicznej"
+            ],
+            "en": [
+                "Enterprise class software implementation",
+                "Writing technical documentation"
+            ]
+        }
+    },
     {
         "company": "BLStream Sp. z o. o.",
         "since": "2011-06",

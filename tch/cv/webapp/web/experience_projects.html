@@ -1,3 +1,13 @@
-<h4>
- ...	
-</h4>
+{% if content.projects%}
+<h4>{{content.projects.labels.engagement[language]}}</h4>
+
+    {% for item in content.projects.projects%}
+        {{item}}
+
+        {% if item.technologies %}
+            {% for tenchnology in item.technologies%}
+                <h4><li>{{tenchnology[language]}}</li></h4>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
