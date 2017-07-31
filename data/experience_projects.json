@@ -7,6 +7,43 @@
   },
   "projects": [
     {
+        "company": "Asseco S.A.",
+        "since": "2014-09",
+        "until": "2016-06",
+        "description": {
+          "pl": "Udział w projektowaniu i implementacji systemu wsparcia biznesu wykorzystywanego do obsługi, sprzedaży i rozliczeń usług konwergentnych.",
+          "en": "Team player being responsible for design and implementation of omnichannel businnes supprort solution based on convergent service idea. "
+        },
+        "technologies": {
+          "pl": [
+            "Java",
+            "REST",
+            "SQL",
+            "Spring Security",
+            "Spring",
+            "JSF",
+            "SID",
+            "Scrum",
+            "ServiceMix",
+            "SSO"
+          ],
+          "en": [
+            "Java",
+            "REST",
+            "SQL",
+            "Spring Security",
+            "Spring",
+            "JSF",
+            "SID",
+            "Scrum",
+            "ServiceMix",
+            "SSO"
+          ]
+        }
+    }
+,
+
+    {
         "company": "DC S.A.",
         "since": "2013-06",
         "until": "2014-03",

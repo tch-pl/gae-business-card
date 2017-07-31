@@ -1,13 +1,15 @@
 {% if content.projects%}
 <h4>{{content.projects.labels.engagement[language]}}</h4>
 
-    {% for item in content.projects.projects%}
-        <h4>{{item.description[language]}}</h4>
+{% for item in content.projects.projects%}
+<p><b>{{item.description[language]}}</b></p>
 
-        {% if item.technologies %}
-            {% for tenchnology in item.technologies[language]%}
-                <li>{{tenchnology}}</li>
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
+{% if item.technologies %}
+{% for tenchnology in item.technologies[language]%}
+<li>{{tenchnology}}</li>
+{% endfor %}
+{% endif %}
+<p>-----------</p>
+
+{% endfor %}
 {% endif %}
